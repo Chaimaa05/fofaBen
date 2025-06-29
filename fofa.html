@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Love Animation</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: linear-gradient(to bottom, #d2b48c, #a67b5b); /* Dégradé marron clair et chaleureux */
-            background-image: url('an.webp'); /* Utilisation de l'image de fond */
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(to bottom, #d2b48c, #a67b5b);
+            background-image: url('an.webp');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             font-family: 'Georgia', serif;
             text-align: center;
             overflow: hidden;
             position: relative;
         }
+        
         .hi-fofa {
-            font-size: 36px;
-            color: #8b4513; /* Marron foncé pour un effet chaleureux */
+            font-size: clamp(28px, 8vw, 48px);
+            color: #8b4513;
             text-shadow: 0 0 20px rgba(139, 69, 19, 0.8);
             position: absolute;
             top: 40%;
@@ -30,10 +39,11 @@
             opacity: 0;
             animation: fadeIn 2s forwards;
         }
+        
         .message {
-            font-size: 24px;
-            color: #4e342e; /* Marron profond */
-            background: rgba(255, 239, 213, 0.9); /* Fond doux (beige pâle) pour une ambiance familiale */
+            font-size: clamp(16px, 4vw, 24px);
+            color: #4e342e;
+            background: rgba(255, 239, 213, 0.9);
             padding: 15px 25px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -50,23 +60,68 @@
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
+        
         .word {
             opacity: 0;
             animation: fadeInWord 0.7s forwards;
         }
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
+        
         @keyframes fadeInWord {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Animations supplémentaires pour mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .hi-fofa {
+                margin-bottom: 30px;
+                animation: fadeInScale 2s forwards, pulse 3s infinite 2s;
+            }
+            
+            .message {
+                padding: 15px;
+                border-radius: 15px;
+                gap: 6px;
+            }
+            
+            .word {
+                font-size: clamp(14px, 4vw, 20px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Effet de coeur battant */
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b6b;
+            animation: heartBeat 2s infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes heartBeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.2); }
+        }
     </style>
 </head>
 <body>
-    <div class="hi-fofa" id="hi-fofa">fofa My Love </div>
+    <div class="hi-fofa" id="hi-fofa">fofa My Love</div>
     <div class="message" id="message"></div>
+    
     <script>
         function showMessage() {
             const messageDiv = document.getElementById("message");
@@ -74,7 +129,7 @@
             messageDiv.style.visibility = "visible";
             messageDiv.style.opacity = "1"; 
             
-            const words = ["Distance", "can’t", "break", "the", "bond", "of", "love.", "Stay", "strong,", "you", "are", "never", "alone."];
+            const words = ["Distance", "can't", "break", "the", "bond", "of", "love.", "Stay", "strong,", "you", "are", "never", "alone."];
 
             words.forEach((word, index) => {
                 let span = document.createElement("span");
@@ -91,5 +146,5 @@
             setTimeout(showMessage, 2000);
         }, 1000);
     </script>
-</body>  
+</body>
 </html>
